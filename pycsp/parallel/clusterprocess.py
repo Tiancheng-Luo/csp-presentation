@@ -17,9 +17,11 @@ has_paramiko= False
 try:
     import paramiko
     has_paramiko= True
+    print '****************HAS PARA: ', str(has_paramiko)
 except ImportError, e:
     # Ignore for now
     pass
+    print '************* NO PARAMIKO'
 
 from pycsp.parallel.exceptions import *
 from pycsp.parallel.const import *

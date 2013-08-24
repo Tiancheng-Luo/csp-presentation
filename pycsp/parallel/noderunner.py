@@ -53,12 +53,15 @@ class NodeRunnerThread(threading.Thread):
     
             client.connect(self.ssh_host, port=self.ssh_port, username=self.ssh_user, password=self.ssh_password)
 
-            command= " ".join(["/usr/bin/env", 
+            command= " ".join(["export PYTHONPATH=/home/arild/bin/python /usr/bin/env", #"/usr/bin/env",
                                self.ssh_python, "-m", "pycsp.parallel.server",
                                self.cwd, self.arg_chan_host, self.arg_chan_port, self.arg_chan_name])
 
             transport = client.get_transport()
             session = transport.open_session()
+            # session.exec_command("export PYTHONPATH=$PYTHONPATH:~/bin/python")
+            print '*** COMMAND: ***'
+            print command
             session.exec_command(command)
 
             while True:
